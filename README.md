@@ -2,7 +2,7 @@
 
 A tool to solve the 15-puzzle with multiple search algorithms and compare their performance.  
 Runs IDS, A*(h0), A*(h1), and A*(h2) on random initial states, outputting results to CSV.  
-Searches that exceed `MAX_NODES` (default: 1,000,000) are forcibly terminated and recorded as `-1`.
+Searches that exceed `MAX_NODES` (default: 5,000,000) are forcibly terminated and recorded as `-1`.
 
 > **Original**: [abpaudel/8-puzzle](https://github.com/abpaudel/8-puzzle) (GPLv3)  
 > **Modified by**: Igakg (2026)
@@ -14,14 +14,15 @@ Searches that exceed `MAX_NODES` (default: 1,000,000) are forcibly terminated an
 ## Algorithms
 
 | Identifier | Algorithm | Heuristic |
-|------------|-----------|-----------|
-| `ids`  | Iterative Deepening Search (IDS) | None |
+| ---------- | --------- | --------- |
+| `ids` | Iterative Deepening Search (IDS) | None |
 | `ast0` | A* | h(n) = 0 (equivalent to Dijkstra) |
 | `ast1` | A* | h(n) = Number of misplaced tiles |
 | `ast2` | A* | h(n) = Manhattan distance |
 
 **Goal state**:
-```
+
+```text
  1  2  3  4
  5  6  7  8
  9 10 11 12
@@ -36,7 +37,7 @@ To prevent inefficient algorithms from running indefinitely, all solvers stop wh
 The limit is defined in `solver.py`:
 
 ```python
-MAX_NODES = 1_000_000
+MAX_NODES = 5_000_000
 ```
 
 When the limit is exceeded, the output CSV contains `-1` for all metrics except `nodes_explored`.
@@ -48,6 +49,7 @@ When the limit is exceeded, the output CSV contains `-1` for all metrics except 
 ## Setup
 
 ### Requirements
+
 - Python 3.x
 - numpy
 
@@ -72,6 +74,7 @@ python main.py <algorithm> <initial_state>
 ```
 
 Example:
+
 ```bash
 python main.py ast2 "[1,2,3,4,5,6,7,8,9,10,11,12,13,0,14,15]"
 ```
@@ -85,6 +88,7 @@ python main.py <algorithm> random [n]
 `n` specifies the number of runs (default: 5).
 
 Example:
+
 ```bash
 python main.py ids random        # runs 5 times (default)
 python main.py ast0 random 100   # runs 100 times
@@ -100,14 +104,14 @@ In `random` mode, only solvable states are generated. Results are written to ind
 
 Each run produces a CSV file:
 
-```
+```text
 output_<algorithm>_<index>.csv
 ```
 
 Columns:
 
 | Column | Description |
-|--------|-------------|
+| ------ | ----------- |
 | `cost_of_path` | Number of moves to reach the goal (`-1` if limit exceeded) |
 | `nodes_expanded` | Number of nodes expanded (`-1` if limit exceeded) |
 | `nodes_explored` | Number of nodes explored |
@@ -121,6 +125,7 @@ python connectcsv.py <algorithm>
 ```
 
 Example:
+
 ```bash
 python connectcsv.py ast2
 ```
@@ -131,7 +136,7 @@ Produces `output_ast2_combined.csv`.
 
 ## File Structure
 
-```
+```text
 15-puzzle-performance-comparison/
 ├── main.py          # Entry point & random state generation
 ├── board.py         # Board state, moves, and heuristics (4x4)
