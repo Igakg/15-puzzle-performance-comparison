@@ -2,7 +2,7 @@
 
 A tool to solve the 15-puzzle with multiple search algorithms and compare their performance.  
 Runs IDS, A*(h0), A*(h1), and A*(h2) on random initial states, outputting results to CSV.  
-Searches that exceed `MAX_NODES` (default: 100,000) are forcibly terminated and recorded as `-1`.
+Searches that exceed `MAX_NODES` (default: 1,000,000) are forcibly terminated and recorded as `-1`.
 
 > **Original**: [abpaudel/8-puzzle](https://github.com/abpaudel/8-puzzle) (GPLv3)  
 > **Modified by**: Igakg (2026)
@@ -36,7 +36,7 @@ To prevent inefficient algorithms from running indefinitely, all solvers stop wh
 The limit is defined in `solver.py`:
 
 ```python
-MAX_NODES = 100_000
+MAX_NODES = 1_000_000
 ```
 
 When the limit is exceeded, the output CSV contains `-1` for all metrics except `nodes_explored`.
